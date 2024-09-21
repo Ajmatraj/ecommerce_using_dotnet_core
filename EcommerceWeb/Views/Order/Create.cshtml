@@ -1,0 +1,108 @@
+﻿@model EcommerceWeb.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    decimal total = 0;
+}
+
+
+<!-- Checkout Start -->
+<div class="container-fluid pt-5">
+    <form method="post">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+           
+            <div class="mb-4">
+                <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>First Name</label>
+                        <input asp-for="@Model.BillingAddress.FirstName" class="form-control" type="text" placeholder="John">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name</label>
+                            <input asp-for="@Model.BillingAddress.LastName" class="form-control" type="text" placeholder="Doe">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>E-mail</label>
+                            <input asp-for="@Model.BillingAddress.Email" class="form-control" type="text" placeholder="example@email.com">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobile No</label>
+                            <input asp-for="@Model.BillingAddress.Phone" class="form-control" type="text" placeholder="+123 456 789">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line 1</label>
+                            <input asp-for="@Model.BillingAddress.Address1" class="form-control" type="text" placeholder="123 Street">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line 2</label>
+                            <input asp-for="@Model.BillingAddress.Address2" class="form-control" type="text" placeholder="123 Street">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Country</label>
+                            <select asp-for="@Model.BillingAddress.Country" class="custom-select">
+                            <option selected>United States</option>
+                            <option>Afghanistan</option>
+                            <option>Albania</option>
+                            <option>Algeria</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>City</label>
+                            <input asp-for="@Model.BillingAddress.City" class="form-control" type="text" placeholder="New York">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>State</label>
+                            <input asp-for="@Model.BillingAddress.State" class="form-control" type="text" placeholder="New York">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>ZIP Code</label>
+                            <input asp-for="@Model.BillingAddress.Zip" class="form-control" type="text" placeholder="123">
+                    </div>
+                  
+                </div>
+            </div>
+           
+         </div>
+       
+        <div class="col-lg-4">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-medium mb-3">Products</h5>
+                        @foreach(var item in Model.Items)
+                        {
+                            <div class="d-flex justify-content-between">
+                                <p>@item.Product.Name</p>
+                                <p>@item.Product.Price.ToString("F2")</p>
+                                <p>@item.Quantity</p>
+
+                            </div>
+                            total += item.Product.Price * item.Quantity;
+                        }
+                    
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Total</h5>
+                        <h5 class="font-weight-bold">$@total.ToString("F2")</h5>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="card border-secondary mb-5">
+               
+                <div class="card-footer border-secondary bg-transparent">
+                    <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                </div>
+           
+            </div>
+        </div>
+    
+    </div>
+    </form>
+</div>
+<!-- Checkout End -->

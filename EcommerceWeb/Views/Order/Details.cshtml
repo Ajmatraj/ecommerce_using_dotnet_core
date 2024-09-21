@@ -1,0 +1,112 @@
+﻿@model EcommerceWeb.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    decimal total = 0;
+}
+
+<h1>Details</h1>
+
+<div>
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>User</label>
+                            @Model.User.Email
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>First Name:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.FirstName)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Last Name:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.LastName)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>E-mail:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.Email)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Mobile No:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.Phone)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address Line 1:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.Address1)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address Line 2:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.Address2)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Country:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.Country)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>City:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.City)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>State:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.State)
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>ZIP Code:</label>
+                            @Html.DisplayFor(m => m.BillingAddress.Zip)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="font-weight-medium mb-3">Products</h5>
+                        @if (Model.Items == null || !Model.Items.Any())
+                        {
+                            <p>No items in the order.</p>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.Items)
+                            {
+                                if (item?.Product != null)
+                                {
+                                    <div class="d-flex justify-content-between">
+                                        <p>@item.Product.Name</p>
+                                        <p>@item.Product.Price.ToString("F2")</p>
+                                        <p>@item.Quantity</p>
+                                    </div>
+                                    total += item.Product.Price * item.Quantity;
+                                }
+                                else
+                                {
+                                    <div class="d-flex justify-content-between">
+                                        <p>Product details not available.</p>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold">$@total.ToString("F2")</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

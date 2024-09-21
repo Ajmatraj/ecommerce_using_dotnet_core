@@ -1,0 +1,96 @@
+﻿@model EcommerceWeb.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{
+    int counter = 0;
+}
+<!-- Shop Detail Start -->
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 pb-5">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner border">
+                    @foreach (var item in Model.ImagePath)
+                    {
+                        <div class="@(counter == 0 ? "carousel-item active" : "carousel-item")">
+                            <img class="w-100 h-100" src="~/@item" alt="Product Image">
+                        </div>
+                        counter++;
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                    <i class="fa fa-2x fa-angle-left text-dark"></i>
+                </a>
+                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                    <i class="fa fa-2x fa-angle-right text-dark"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-7 pb-5">
+            <h3 class="font-weight-semi-bold">@Model.Name</h3>
+            @if (Model.HasDiscount)
+            {
+                <h3 class="font-weight-semi-bold mb-4">$@((Model.Price - Model.Price * Model.Discount).ToString("f2"))</h3>
+                <h5 class="font-weight-semi-bold "><del>$@Model.Price.ToString("f2")</del></h5>
+            }
+            else
+            {
+                <h3 class="font-weight-semi-bold mb-4">$@Model.Price.ToString("f2")</h3>
+            }
+
+            <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
+            @if (User.Identity.IsAuthenticated)
+            {
+
+
+                <form asp-controller="Cart" asp-action="AddToCart" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="@Model.Id" class="form-control bg-secondary text-center" />
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                        <div class="input-group quantity mr-3" style="width: 130px;">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-minus">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+
+                            <input asp-for="@Model.Quantity" type="text" class="form-control bg-secondary text-center" value="1" />
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-plus">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Login">Login To add cart Login</a>
+
+            }
+            <div class="d-flex pt-2">
+                <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
+                <div class="d-inline-flex">
+                    <a class="text-dark px-2" href="#">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-dark px-2" href="#">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-dark px-2" href="#">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-dark px-2" href="#">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Detail End -->

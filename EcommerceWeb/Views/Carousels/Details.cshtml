@@ -1,0 +1,45 @@
+﻿@model EcommerceWeb.Models.Carousel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Carousel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Heading)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Heading)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SubHeading)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SubHeading)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ButtonUrl)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ButtonUrl)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd class = "col-sm-10">
+
+             <img src="https://localhost:7017//@Model.Image.imagePath" alt="Carousel" width="500px" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
